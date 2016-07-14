@@ -36,14 +36,14 @@ public class BoardController {
 
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
 	public String listAll(Model model) throws Exception {
-//		logger.info("show all list...");
+		// logger.info("show all list...");
 		model.addAttribute("list", boardService.listAll());
 		return "/board/listAll";
 	}
 
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public void read(@RequestParam("bno") int bno, Model model) throws Exception {
-//		logger.info("read No." + bno);
+		// logger.info("read No." + bno);
 		model.addAttribute(boardService.read(bno));
 	}
 
@@ -52,10 +52,17 @@ public class BoardController {
 		model.addAttribute(boardService.read(bno));
 		return "/board/modify";
 	}
-	
+
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String updatePost(@ModelAttribute BoardVO vo, RedirectAttributes rttr) throws Exception {
 		boardService.modify(vo);
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		return "redirect:/board/listAll";
+	}
+
+	@RequestMapping(value = "/remove", method=RequestMethod.POST)
+	public String delete(int bno, RedirectAttributes rttr) throws Exception {
+		boardService.remove(bno);
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		return "redirect:/board/listAll";
 	}
