@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -45,5 +46,16 @@ public class BoardController {
 			logger.error("listAll : " + e);
 		}
 		return "/board/listAll";
+	}
+	
+	@RequestMapping(value="/read", method=RequestMethod.GET)
+	public String read(@RequestParam("bno") int bno, Model model){
+		logger.info("read No." + bno);
+		try {
+			model.addAttribute("boardVO", boardService.read(bno));
+		} catch (Exception e) {
+			logger.error("read : " + e);
+		}
+		return "/board/read";
 	}
 }
