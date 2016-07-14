@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,34 +28,35 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
-	public String registPost(BoardVO vo, RedirectAttributes rttr) {
-		try {
-			boardService.regist(vo);
-			rttr.addFlashAttribute("msg", "SUCCESS");
-		} catch (Exception e) {
-			logger.error("registPost : " + e);
-		}
+	public String registPost(BoardVO vo, RedirectAttributes rttr) throws Exception {
+		boardService.regist(vo);
+		rttr.addFlashAttribute("msg", "SUCCESS");
 		return "redirect:/board/listAll";
 	}
 
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
-	public String listAll(Model model) {
-		logger.info("show all list...");
-		try {
-			model.addAttribute("list", boardService.listAll());
-		} catch (Exception e) {
-			logger.error("listAll : " + e);
-		}
+	public String listAll(Model model) throws Exception {
+//		logger.info("show all list...");
+		model.addAttribute("list", boardService.listAll());
 		return "/board/listAll";
 	}
 
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public void read(@RequestParam("bno") int bno, Model model) throws Exception{
-		logger.info("read No." + bno);
-//		try {
-			model.addAttribute(boardService.read(bno));
-//		} catch (Exception e) {
-//			logger.error("read : " + e);
-//		}
+	public void read(@RequestParam("bno") int bno, Model model) throws Exception {
+//		logger.info("read No." + bno);
+		model.addAttribute(boardService.read(bno));
+	}
+
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public String updateGet(int bno, Model model) throws Exception {
+		model.addAttribute(boardService.read(bno));
+		return "/board/modify";
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String updatePost(@ModelAttribute BoardVO vo, RedirectAttributes rttr) throws Exception {
+		boardService.modify(vo);
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		return "redirect:/board/listAll";
 	}
 }
