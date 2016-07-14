@@ -17,16 +17,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/board/*")
 public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
-	
+
 	@Inject
 	BoardService boardService;
-	
-	@RequestMapping(value="/regist", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/regist", method = RequestMethod.GET)
 	public String registGet() {
 		return "/board/register";
 	}
-	
-	@RequestMapping(value="/regist", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/regist", method = RequestMethod.POST)
 	public String registPost(BoardVO vo, RedirectAttributes rttr) {
 		try {
 			boardService.regist(vo);
@@ -36,8 +36,8 @@ public class BoardController {
 		}
 		return "redirect:/board/listAll";
 	}
-	
-	@RequestMapping(value="/listAll", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
 	public String listAll(Model model) {
 		logger.info("show all list...");
 		try {
@@ -47,15 +47,14 @@ public class BoardController {
 		}
 		return "/board/listAll";
 	}
-	
-	@RequestMapping(value="/read", method=RequestMethod.GET)
-	public String read(@RequestParam("bno") int bno, Model model){
+
+	@RequestMapping(value = "/read", method = RequestMethod.GET)
+	public void read(@RequestParam("bno") int bno, Model model) throws Exception{
 		logger.info("read No." + bno);
-		try {
-			model.addAttribute("boardVO", boardService.read(bno));
-		} catch (Exception e) {
-			logger.error("read : " + e);
-		}
-		return "/board/read";
+//		try {
+			model.addAttribute(boardService.read(bno));
+//		} catch (Exception e) {
+//			logger.error("read : " + e);
+//		}
 	}
 }

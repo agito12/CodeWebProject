@@ -9,7 +9,7 @@
 <h2>${exception.getMessage()}</h2>
 <ul>
 	<c:forEach items="${exception.getStackTrace()}" var="stack">
-		<li>${stack.toString}</li>
+		<li>${stack.toString()}</li>
 	</c:forEach>
 </ul>
 </body>
