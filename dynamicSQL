@@ -1,0 +1,12 @@
+<sql id="reboard.where">
+	<if test="value!=null and value!="">
+		<foreach item="item" collection="key" open="where" separator="or">
+			#{item} like '%' || #{value} || '%'
+		</foreach>
+	</if>
+</sql>
+
+<select id="getTotalSize" resultType="int">
+	select count(no) from reboard
+	<include refid="reboard.where" />
+</select>
