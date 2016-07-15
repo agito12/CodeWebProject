@@ -1,15 +1,15 @@
-<%@ page contentType="text/html; charset=EUC-KR" isELIgnored="false"%>
+<%@ page contentType="text/html; charset=utf-8" isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Insert title here</title>
 </head>
 <body>
-<form action="member/login" method="post">
-	¾ÆÀÌµğ : <input type="text" name="userid"/><br>
-	ÆĞ½º¿öµå : <input type="password" name="userpw"><br>
-	<button type="submit">·Î±×ÀÎ</button>
-	<button type="reset">Ãë¼Ò</button>
-</form>
+	<form action="/member/login" method="post">
+		ì•„ì´ë”” : <input type="text" name="userid" /><br> íŒ¨ìŠ¤ì›Œë“œ : <input
+			type="password" name="userpw"><br>
+		<button type="submit">ë¡œê·¸ì¸</button>
+		<button type="reset">ì·¨ì†Œ</button>
+	</form>
 </body>
 </html>

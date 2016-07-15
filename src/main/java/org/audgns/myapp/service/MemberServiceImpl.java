@@ -4,7 +4,9 @@ import javax.inject.Inject;
 
 import org.audgns.myapp.domain.MemberVO;
 import org.audgns.myapp.persistence.MemberDao;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MemberServiceImpl implements MemberService {
 	@Inject
 	MemberDao memberDao;

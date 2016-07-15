@@ -37,6 +37,9 @@ public class MemberDaoImpl implements MemberDao {
 		paramMap.put("userid", userid);
 		paramMap.put("userpw", userpw);
 		MemberVO vo = sqlSession.selectOne(NAMESPACE + ".readWithPW", paramMap);
+		if(vo==null) {
+			throw new Exception();
+		}
 		return vo;
 	}
 }
